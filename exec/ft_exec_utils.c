@@ -63,6 +63,7 @@ char	*search_executable(char *cmd, char **path_each)
 			ft_splitfree(path_each);
 			return (ret);
 		}
+		free(ret);
 	}
 	return (NULL);
 }
@@ -81,6 +82,7 @@ char	*search_binary(char *cmd, char **path_each)
 			ft_splitfree(path_each);
 			return (ret);
 		}
+		free(ret);
 	}
 	return (NULL);
 }

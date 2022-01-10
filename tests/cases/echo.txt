@@ -42,3 +42,7 @@ echo "$ $ $ $ $ $ "
 echo $
 echo "'$USER'"
 echo "$USER'$USER'"
+echo ""
+echo ''
+echo "      "
+echo '      '

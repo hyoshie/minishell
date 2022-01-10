@@ -22,22 +22,20 @@ static void	cmd_err(char *cmd)
 
 static char	*path_from_env(char *cmd, char *envpath)
 {
-	int		i;
 	char	*ret;
 	char	**path_each;
 
 	path_each = ms_xsplit(envpath, ':');
 	if (*path_each == NULL)
 		return (cmd);
-	i = -1;
 	ret = search_executable(cmd, path_each);
 	if (ret)
 		return (ret);
 	ret = search_binary(cmd, path_each);
 	if (ret)
 		return (ret);
-	cmd_err(cmd);
 	ft_splitfree(path_each);
+	cmd_err(cmd);
 	return (0);
 }
 

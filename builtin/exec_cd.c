@@ -6,7 +6,7 @@
 /*   By: yshimazu <yshimazu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 14:22:20 by yshimazu          #+#    #+#             */
-/*   Updated: 2021/12/25 11:30:20 by yshimazu         ###   ########.fr       */
+/*   Updated: 2022/01/06 14:15:13 by yshimazu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,7 @@ static bool	dot_handle(char *operand, char *current_path, t_info *info)
 			perror("getcwd: cannot access parent directories");
 			update_path = ft_xstrjoin(current_path, "/.");
 			update_pwd(current_path, update_path, info);
-			free(update_path);
-			free(current_path);
-			free(operand);
+			multi_free(operand, current_path, update_path, NULL);
 			return (false);
 		}
 		else
@@ -58,10 +56,13 @@ int	exec_cd(char **args, t_info *info)
 	char	*operand;
 	t_clst	*path_clst;
 
-	current_path = ft_strdup(dict_get_value("pwd", info->pwd));
+	current_path = ft_xstrdup(dict_get_value("pwd", info->pwd));
 	operand = set_cd_dest(args, info);
 	if (!operand)
+	{
+		free(current_path);
 		return (CONTINUE);
+	}
 	if (!dot_handle(operand, current_path, info))
 		return (CONTINUE);
 	path_clst = path_to_clst(current_path, operand);
@@ -73,8 +74,6 @@ int	exec_cd(char **args, t_info *info)
 		cd_perror(args[1]);
 	else
 		update_pwd(current_path, dest_path, info);
-	free(operand);
-	free(current_path);
-	free(dest_path);
+	multi_free(operand, current_path, dest_path, NULL);
 	return (CONTINUE);
 }

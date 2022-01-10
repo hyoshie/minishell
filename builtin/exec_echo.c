@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_echo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yshimazu <yshimazu@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hyoshie <hyoshie@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 07:45:23 by yshimazu          #+#    #+#             */
-/*   Updated: 2021/12/21 19:15:42 by hyoshie          ###   ########.fr       */
+/*   Updated: 2022/01/06 11:58:43 by hyoshie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,19 @@ static bool	has_n_option(char *cmd)
 	if (cmd == NULL)
 		return (false);
 	if (ft_strncmp(cmd, "-n", 2) == 0)
+	{
 		cmd += 2;
-	while (*cmd == 'n')
-		cmd++;
-	if (*cmd == '\0')
-		return (true);
+		while (*cmd == 'n')
+			cmd++;
+		if (*cmd == '\0')
+			return (true);
+		else
+			return (false);
+	}
 	else
+	{
 		return (false);
+	}
 }
 
 static void	skip_optins(char **cmd, size_t *i)
